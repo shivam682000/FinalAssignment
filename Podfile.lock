@@ -1,0 +1,16 @@
+PODS:
+  - Mocker (2.5.4)
+
+DEPENDENCIES:
+  - Mocker (~> 2.5.4)
+
+SPEC REPOS:
+  trunk:
+    - Mocker
+
+SPEC CHECKSUMS:
+  Mocker: a507909031ef5d1014fe18f383c1d0f96c182b99
+
+PODFILE CHECKSUM: 5d624fd5483061c475603990ed2cf2643ab996e9
+
+COCOAPODS: 1.11.1

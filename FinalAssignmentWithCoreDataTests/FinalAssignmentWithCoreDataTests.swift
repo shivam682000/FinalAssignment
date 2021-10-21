@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import FinalAssignmentWithCoreData
+import Mocker
 
 class FinalAssignmentWithCoreDataTests: XCTestCase {
     
@@ -40,28 +41,23 @@ class FinalAssignmentWithCoreDataTests: XCTestCase {
         let vc = get()
         XCTAssertTrue(vc.conforms(to: UITableViewDelegate.self))
         vc.users = [BatchesListModel(batchId: 2, name: "tabel dem", isActive: 1, batchCode: "qsadfx", createdDate: "2021-10-8")]
-        let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as! TableViewCell
-        XCTAssertNotNil(vc.tableView(vc.tableView, willDisplay: cell, forRowAt: IndexPath(row: 0, section: 0)))
-
+        let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: Constants.DEFAULT_VALUE, section: Constants.DEFAULT_VALUE)) as! TableViewCell
+        XCTAssertNotNil(vc.tableView(vc.tableView, willDisplay: cell, forRowAt: IndexPath(row: Constants.DEFAULT_VALUE, section: Constants.DEFAULT_VALUE)))
     }
     
     func test_conform_protocol_check() {
         let vc = get()
-        
         XCTAssertTrue(vc.conforms(to: UISearchBarDelegate.self))
-        
-      
     }
     
     func testTableViewCellHasReuseIdentifier() {
         let vc = get()
         vc.users = [BatchesListModel(batchId: 2, name: "tabel dem", isActive: 1, batchCode: "qsadfx", createdDate: "2021-10-8")]
-        let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? TableViewCell
+        let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: Constants.DEFAULT_VALUE, section: Constants.DEFAULT_VALUE)) as? TableViewCell
         let actualReuseIdentifer = cell?.reuseIdentifier
         let expectedReuseIdentifier = "cell"
-            XCTAssertEqual(actualReuseIdentifer, expectedReuseIdentifier)
-        
-        }
+        XCTAssertEqual(actualReuseIdentifer, expectedReuseIdentifier)
+    }
     
     func test_searchbarfunction() {
         let vc = get()
@@ -96,13 +92,8 @@ class FinalAssignmentWithCoreDataTests: XCTestCase {
     
     func test_tableViewCell() {
         let vc = get()
-       
         XCTAssertNotNil(vc.tableViewCell(_:subscribeButtonTappedFor:))
     }
-    
-    
-    
-    
     
     // Table View cell
     
@@ -115,6 +106,7 @@ class FinalAssignmentWithCoreDataTests: XCTestCase {
     }
     
     // Add View Controller
+    
     func test_view1() {
         let vc = get_AddEmployee_object()
         XCTAssertNotNil(vc.view)
@@ -143,65 +135,16 @@ class FinalAssignmentWithCoreDataTests: XCTestCase {
     func test_isUpdateFunction() {
         let vc = get_AddEmployee_object()
         vc.isUpdate = true
-        
         vc.addTapped()
         XCTAssertNotNil(vc.addTapped)
-        
     }
     
     func test_configure() {
         let vc = get_AddEmployee_object()
         vc.configure(data: BatchesListModel(batchId: 0, name: "s", isActive: 1, batchCode: "s", createdDate: "2021-10-12"))
         XCTAssertNotNil(vc.object)
-        
         vc.setupforEdit()
     }
-    
-    
-    
-    
-    // Test View Model
-    
-    func test_ViewModel() {
-        let object = ApiServices()
-        let request = ["batchCode":"mlygf","batchStartDate":"2021-10-12","batchName":"request12"]
-        let url1 = Constants.baseUrl + "batches/" + "wobeeettrr" + "/edit"
-        let completeurl = URL(string: url1 )
-        let encodedRequest = try! JSONEncoder().encode(request)
-        object.patchApiData(requestUrl: completeurl!, requestBody: encodedRequest, resultType: Decodable2.self) {
-            (result) in
-            XCTAssertEqual(result.status,"success")
-        }
-        
-        let url2 = Constants.baseUrl + "batches/" + "wobeeettrr"
-        let completeurl2 = URL(string: url2 )
-        object.deleteApiData(requestUrl: completeurl2!, resultType: Decodable2.self) {
-            (result) in
-            XCTAssertEqual(result.status,"success")
-        }
-        
-        let request3 = ["batchCode":"mlygf","batchStartDate":"2021-10-12","batchName":"request12"]
-       
-       
-        let encodedRequest3 = try! JSONEncoder().encode(request3)
-        object.postApiData(requestUrl: Constants.post_data!, requestBody: encodedRequest3, resultType: DecodbaleData.self) {
-            (result) in
-            XCTAssertEqual(result.status,"success")
-            
-        }
-        
-        
-        
-        
-        
-        
-    }
-    
-    
-    
-    
-    
-    
 }
 
 extension FinalAssignmentWithCoreDataTests {
@@ -209,17 +152,13 @@ extension FinalAssignmentWithCoreDataTests {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(identifier: "RootViewController") as! RootViewController
         _ = vc.view
-        
         return vc
-        
     }
     
     func get_AddEmployee_object() -> AddEmployeeViewController{
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(identifier: "AddEmployeeViewController") as! AddEmployeeViewController
         _ = vc.view
-        
         return vc
-        
     }
 }

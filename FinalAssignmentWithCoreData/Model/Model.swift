@@ -7,36 +7,33 @@
 
 import Foundation
 
-struct ResponseModel: Decodable {
-    let status, message: String
-    let data: DataListModel
-    
-    enum CodingKeys: String, CodingKey {
+struct ResponseModel : Decodable {
+    let status, message : String
+    let data : DataListModel
+    enum CodingKeys : String, CodingKey {
         case status
         case message
         case data
     }
 }
 
-struct DataListModel: Decodable {
-    let totalBatches: [BatchesListModel]
-    let batchesCount, archivedBatchesCount: Int
-    
-    enum CodingKeys: String, CodingKey {
+struct DataListModel : Decodable {
+    let totalBatches : [BatchesListModel]
+    let batchesCount, archivedBatchesCount : Int
+    enum CodingKeys : String, CodingKey {
         case totalBatches
         case batchesCount
         case archivedBatchesCount
     }
 }
 
-struct BatchesListModel: Decodable,Equatable {
-    var batchId: Int
-    var name: String
-    var isActive: Int
-    var batchCode: String
+struct BatchesListModel : Decodable, Equatable {
+    var batchId : Int
+    var name : String
+    var isActive : Int
+    var batchCode : String
     var createdDate : String
-    
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys : String, CodingKey {
         case batchId
         case name
         case isActive
@@ -47,51 +44,63 @@ struct BatchesListModel: Decodable,Equatable {
 
 // Post Structure
 
-struct NewBatch: Encodable{
-    let batchCode, batchStartDate, batchName: String
+struct NewBatch : Encodable {
+    let batchCode, batchStartDate, batchName : String
 }
 
-struct DecodbaleData: Decodable {
-    let status: String
-    let data: DataClass
-    let message: String
+struct DecodableData : Decodable {
+    let status : String
+    let data : DataClass
+    let message : String
 }
 
-// MARK: - DataClass
-struct DataClass: Codable {
-    let batchName, batchCode, batchStartDate: String
-    let isNew, id, coinsCreadited: Int
+struct DataClass : Codable {
+    let batchName, batchCode, batchStartDate : String
+    let isNew, id, coinsCreadited : Int
 }
 
 struct DecodabeleData2 : Decodable {
-    let status: String
-    let message: String
+    let status : String
+    let message : String
 }
 
-// MARK: - Datum
-struct Detail: Decodable {
-    let batchID: Int
-    let batchCode, createdDate: String
-    let name: String
-    enum CodingKeys: String, CodingKey {
+struct Detail : Decodable {
+    let batchID : Int
+    let batchCode, createdDate : String
+    let name : String
+    enum CodingKeys : String, CodingKey {
         case batchID = "batchId"
         case batchCode, createdDate
-        
         case name
     }
 }
 
-struct Decodable2: Decodable {
-    let status: String?
-    let data: DataClass2?
-    let message: String?
+struct Decodable2 : Decodable {
+    let status : String?
+    let data : DataClass2?
+    let message : String?
 }
 
 
-struct DataClass2: Decodable {
-    let removedBatch: String?
+struct DataClass2 : Decodable {
+    let removedBatch : String?
 }
 
+struct TestingModel : Codable, Equatable {
+    let status : String
+    let message : String
+}
+
+struct OutputResponseGet :Decodable {
+    let status : String
+    let data : [InsideResponseData]
+    let message : String
+}
+
+struct InsideResponseData : Decodable {
+    let totalBatches : [String:String]
+    let batchesCount : Int
+}
 
 
 
